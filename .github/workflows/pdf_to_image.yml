@@ -4,7 +4,10 @@ on:
   schedule:
     - cron: '0 18 * * *'  # UTC時間で毎日03:00 JST（9時間ずらす）
   workflow_dispatch:
-
+  
+permissions:
+  contents: write
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,3 +39,11 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./output_images
+
+      - name: Push to gh-pages
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin gh-pages
+    
