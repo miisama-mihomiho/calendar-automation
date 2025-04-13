@@ -23,7 +23,7 @@ jobs:
 
     - name: Download PDF from Google Drive
       run: |
-        curl -L -o カレンダー.pdf "https://drive.google.com/uc?export=download&id=1PTpyiZX_T5mj6GBQ1NdVO8vz5Q4MqVIG"
+        curl -L -o Calendar.pdf "https://drive.google.com/uc?export=download&id=1TBZaXPWz85Eh8z5tGYy-NKTuV7nJhqLaあ"
 
     - name: Convert PDF to PNG
       run: python pdf_to_image.py
