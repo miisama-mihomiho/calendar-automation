@@ -26,7 +26,7 @@ jobs:
 
     - name: Download PDF from Google Drive
       run: |
-        curl -L -o Calendar.pdf "https://drive.google.com/uc?export=download&id=1TBZaXPWz85Eh8z5tGYy-NKTuV7nJhqLaあ"
+        curl -L -o Calendar.pdf "https://drive.google.com/uc?export=download&id=1TBZaXPWz85Eh8z5tGYy-NKTuV7nJhqLa"
 
     - name: Convert PDF to PNG
       run: python pdf_to_image.py
