@@ -2,7 +2,7 @@ name: Convert PDF to Image Daily
 
 on:
   schedule:
-    - cron: '26 12 * * *'  # UTC時間で毎日03:00 JST（9時間ずらす）
+    - cron: '0 13 * * *'  # UTC時間で毎日03:00 JST（9時間ずらす）
   workflow_dispatch:
   
 permissions:
