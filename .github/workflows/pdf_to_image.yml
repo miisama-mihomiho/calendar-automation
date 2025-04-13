@@ -40,14 +40,10 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./output_images
         
-    - name: Push to gh-pages
-      run: |
-        git config --global user.name github-actions
-        git config --global user.email github-actions@github.com
-        git checkout --orphan gh-pages  # ← 存在しない場合は新規作成
-        git add .
-        git commit -m "Deploy"
-        git branch -M gh-pages          # ← ブランチ名を明示
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-        git push -f origin gh-pages     # ← 強制 push（初回だけ）
+      - name: Push to gh-pages
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin gh-pages
         
