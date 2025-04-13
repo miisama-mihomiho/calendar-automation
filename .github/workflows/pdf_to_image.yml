@@ -9,12 +9,12 @@ permissions:
   contents: write
   
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v3
 
     - name: Install system dependencies
       run: sudo apt-get update && sudo apt-get install -y poppler-utils
@@ -40,10 +40,10 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./output_images
 
-      - name: Push to gh-pages
-        run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin gh-pages
+    - name: Push to gh-pages
+      run: |
+        git config --global user.name github-actions
+        git config --global user.email github-actions@github.com
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        git push origin gh-pages
     
