@@ -1,19 +1,35 @@
-name: Daily Spreadsheet to Image
+name: Convert PDF to Image Daily
 
 on:
   schedule:
-    - cron: '0 20 * * *'  # UTC時間で毎日05:00 JST（9時間ずらす）
+    - cron: '0 18 * * *'  # UTC時間で毎日03:00 JST（9時間ずらす）
   workflow_dispatch:
 
 jobs:
-  run-script:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v2
 
-    - name: Execute Colab via nbconvert
-      uses: yaananth/run-python-notebook@v1
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        path: calendar.ipynb  # ノートブック名に変更
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Download PDF from Google Drive
+      run: |
+        curl -L -o カレンダー.pdf "https://drive.google.com/uc?export=download&id=1PTpyiZX_T5mj6GBQ1NdVO8vz5Q4MqVIG"
+
+    - name: Convert PDF to PNG
+      run: python pdf_to_image.py
+
+    - name: Upload images to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./output_images
